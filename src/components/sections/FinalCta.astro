@@ -1,0 +1,54 @@
+---
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+---
+<section class="final-cta section" aria-labelledby="cta-title">
+  <div class="container final-cta__container">
+    <div class="final-cta__content">
+      <h2 id="cta-title" class="final-cta__title">
+        Pronta para cuidar da sua <span class="headline-gradient">saúde?</span>
+      </h2>
+      <p class="final-cta__text">
+        Dê o primeiro passo para uma relação mais leve e equilibrada com o seu corpo e a sua alimentação.
+      </p>
+      <div class="final-cta__action">
+        <Button href={siteConfig.bookingUrl} variant="primary" data-analytics="cta_booking_click" data-location="footer">
+          Agendar minha consulta
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    padding: 8rem 0;
+    background-color: var(--color-paper);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .final-cta__container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .final-cta__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .final-cta__text {
+    font-size: 1.25rem;
+    color: var(--color-ink-soft);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .final-cta__action {
+    display: flex;
+    justify-content: center;
+  }
+</style>

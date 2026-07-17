@@ -1,17 +1,36 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/common/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import CredentialsStrip from '../components/sections/CredentialsStrip.astro';
+import AudienceSection from '../components/sections/AudienceSection.astro';
+import BenefitsGrid from '../components/sections/BenefitsGrid.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import MethodSection from '../components/sections/MethodSection.astro';
+import ConsultationSteps from '../components/sections/ConsultationSteps.astro';
+import PlansSection from '../components/sections/PlansSection.astro';
+import TestimonialsCarousel from '../components/sections/TestimonialsCarousel.astro';
+import FaqSection from '../components/sections/FaqSection.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
+import Footer from '../components/common/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <Header />
+	<main id="conteudo-principal">
+		<Hero />
+    <CredentialsStrip />
+    <AudienceSection />
+    <BenefitsGrid />
+    <AboutSection />
+    <MethodSection />
+    <ConsultationSteps />
+    <PlansSection />
+    <TestimonialsCarousel />
+    <FaqSection />
+    <FinalCta />
+	</main>
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>

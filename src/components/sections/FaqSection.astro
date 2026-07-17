@@ -1,0 +1,95 @@
+---
+const faqs = [
+  { question: "Como funciona o atendimento online?", answer: "A consulta é realizada via chamada de vídeo e tem duração média de 1 hora. Nela, conversamos detalhadamente sobre seus objetivos, histórico de saúde e rotina." },
+  { question: "O plano alimentar é difícil de seguir?", answer: "Não. O planejamento é 100% individualizado, considerando sua realidade, cultura e os ingredientes disponíveis onde você mora. O objetivo é que seja prático e sustentável." },
+  { question: "Você prescreve suplementos e analisa exames?", answer: "Sim. A avaliação de exames laboratoriais faz parte da conduta, e a suplementação é indicada de forma pontual e estratégica, apenas quando há real necessidade." },
+  { question: "Em quanto tempo recebo o plano?", answer: "O material completo (plano alimentar, orientações, lista de compras e materiais de apoio) é entregue no aplicativo do paciente em até 3 dias úteis após a consulta." }
+];
+---
+<section id="faq" class="faq section" aria-labelledby="faq-title">
+  <div class="container faq__container">
+    <div class="faq__header">
+      <h2 id="faq-title" class="faq__title">Perguntas <span class="headline-gradient">frequentes</span></h2>
+    </div>
+
+    <div class="faq__accordion">
+      {faqs.map((faq, index) => (
+        <details class="faq-item" name="faq-accordion">
+          <summary class="faq-item__question">
+            {faq.question}
+            <i class="ph ph-plus faq-item__icon"></i>
+          </summary>
+          <div class="faq-item__answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: 8rem 0;
+    background-color: var(--color-paper);
+  }
+
+  .faq__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .faq__title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--color-ink);
+  }
+
+  .faq__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-line);
+    padding-bottom: 1rem;
+  }
+
+  .faq-item__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    cursor: pointer;
+    list-style: none;
+    padding: 1rem 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    transition: transform 0.3s;
+    color: var(--color-clay);
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__answer {
+    padding-bottom: 1.5rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+</style>

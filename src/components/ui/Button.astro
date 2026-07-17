@@ -1,0 +1,91 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  type?: 'button' | 'submit';
+  class?: string;
+  'data-analytics'?: string;
+  'data-location'?: string;
+  id?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary', 
+  type = 'button',
+  class: className = '',
+  'data-analytics': analytics,
+  'data-location': location,
+  id
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+---
+<Tag 
+  href={href} 
+  type={href ? undefined : type}
+  class={`btn btn--${variant} ${className}`}
+  data-analytics={analytics}
+  data-location={location}
+  id={id}
+>
+  <span class="btn__text">
+    <slot />
+  </span>
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+
+  .btn--primary {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
+
+  .btn--primary:hover {
+    background-color: var(--color-clay);
+    border-color: var(--color-clay);
+    transform: translateY(-2px);
+  }
+
+  .btn--secondary {
+    background-color: var(--color-clay);
+    color: var(--color-paper);
+    border-color: var(--color-clay);
+  }
+
+  .btn--secondary:hover {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    transform: translateY(-2px);
+  }
+
+  .btn--outline {
+    background-color: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+
+  .btn--outline:hover {
+    border-color: var(--color-ink);
+    background-color: rgba(38, 38, 38, 0.05);
+  }
+</style>

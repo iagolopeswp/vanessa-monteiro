@@ -1,0 +1,151 @@
+---
+import { siteConfig } from '../../config/site';
+const currentYear = new Date().getFullYear();
+---
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <h3>Vanessa Monteiro</h3>
+        <p>Nutrição Clínica Funcional</p>
+        <p class="footer__sub">Acompanhamento online para brasileiras no Reino Unido e no mundo.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#sobre">Sobre Vanessa</a></li>
+          <li><a href="#metodo">O Método</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#faq">Perguntas Frequentes</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__contact">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          {siteConfig.email && <li><a href={`mailto:${siteConfig.email}`}>E-mail</a></li>}
+        </ul>
+      </div>
+      
+      <div class="footer__legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacidade">Política de Privacidade</a></li>
+          <li><a href="/termos">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; {currentYear} Vanessa Monteiro. Todos os direitos reservados.</p>
+      <p class="footer__disclaimer">As informações deste site têm caráter informativo e não substituem uma consulta nutricional personalizada.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    padding: 6rem 0 3rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 6rem;
+  }
+
+  @media (max-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .footer h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-sand);
+    font-weight: 500;
+  }
+
+  .footer h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-taupe);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer p {
+    font-size: 1rem;
+  }
+
+  .footer__sub {
+    color: var(--color-sand);
+    opacity: 0.8;
+    margin-top: 1rem;
+    max-width: 300px;
+    font-size: 0.875rem !important;
+  }
+
+  .footer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer a {
+    color: var(--color-paper);
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    font-size: 0.875rem;
+  }
+
+  .footer a:hover,
+  .footer a:focus-visible {
+    opacity: 1;
+    color: var(--color-clay);
+  }
+
+  .footer__bottom {
+    border-top: 1px solid var(--color-line-dark);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    opacity: 0.6;
+  }
+
+  .footer__disclaimer {
+    max-width: 400px;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .footer__bottom {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      align-items: center;
+    }
+    .footer__disclaimer {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+
+const consultationSteps = [
+  { title: "Agendamento e questionário inicial", text: "Você escolhe o melhor horário e preenche um formulário detalhado sobre sua saúde, rotina e objetivos." },
+  { title: "Consulta online individual", text: "Um encontro focado na sua história, avaliando seus sintomas e entendendo o seu contexto de vida." },
+  { title: "Estratégia nutricional personalizada", text: "Entrega do seu plano alimentar e orientações práticas, montadas exclusivamente para você." },
+  { title: "Acompanhamento e ajustes", text: "Suporte para tirar dúvidas e realizar os ajustes necessários para manter a sua constância." }
+];
+---
+<section id="como-funciona" class="consultation section" aria-labelledby="consultation-title">
+  <div class="container consultation__container">
+    <div class="consultation__header">
+      <h2 id="consultation-title" class="consultation__title">Como funciona o <span class="headline-gradient">acompanhamento</span></h2>
+    </div>
+
+    <div class="consultation__steps">
+      {consultationSteps.map((step, index) => (
+        <div class="consultation-card">
+          <div class="consultation-card__header">
+             <span class="consultation-card__number">{(index + 1).toString().padStart(2, '0')}</span>
+          </div>
+          <h3 class="consultation-card__title">{step.title}</h3>
+          <p class="consultation-card__text">{step.text}</p>
+        </div>
+      ))}
+    </div>
+    
+    <div class="consultation__action">
+      <Button href={siteConfig.bookingUrl} variant="primary" data-analytics="cta_booking_click" data-location="como-funciona">
+        Agendar minha consulta
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .consultation {
+    background-color: var(--color-paper);
+    padding: 8rem 0;
+  }
+
+  .consultation__header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .consultation__title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--color-ink);
+  }
+
+  .consultation__steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .consultation-card {
+    padding: 2.5rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-line);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .consultation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(38, 38, 38, 0.05);
+  }
+
+  .consultation-card__header {
+    margin-bottom: 1.5rem;
+  }
+
+  .consultation-card__number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--color-clay);
+    font-weight: 600;
+  }
+
+  .consultation-card__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-ink);
+  }
+
+  .consultation-card__text {
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+  }
+
+  .consultation__action {
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+
+const plans = [
+  {
+    id: "online",
+    name: "Acompanhamento Nutricional Online",
+    description: "Um plano completo para quem busca transformação com acompanhamento próximo.",
+    features: [
+      "Questionário pré-consulta detalhado",
+      "Consulta online de 1h a 1h30",
+      "Plano alimentar individualizado",
+      "Análise de exames (se disponíveis)",
+      "Suporte para dúvidas via WhatsApp"
+    ],
+    ctaLabel: "Agendar acompanhamento",
+    ctaUrl: siteConfig.bookingUrl,
+    enabled: true
+  }
+];
+---
+<section id="servico" class="plans section" aria-labelledby="plans-title">
+  <div class="container plans__container">
+    <div class="plans__header">
+      <h2 id="plans-title" class="plans__title">Invista na sua <span class="headline-gradient">saúde.</span></h2>
+    </div>
+
+    <div class="plans__grid">
+      {plans.filter(p => p.enabled).map(plan => (
+        <div class="plan-card">
+          <div class="plan-card__header">
+            <h3 class="plan-card__title">{plan.name}</h3>
+            <p class="plan-card__description">{plan.description}</p>
+          </div>
+          <ul class="plan-card__features">
+            {plan.features.map(feature => (
+              <li>
+                <i class="ph ph-check icon-clay"></i>
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <div class="plan-card__action">
+            <Button href={plan.ctaUrl} variant="primary" class="w-full" data-analytics="plan_cta_click" data-location="servico">
+              {plan.ctaLabel}
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .plans {
+    padding: 8rem 0;
+    background-color: var(--color-paper);
+  }
+
+  .plans__header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .plans__title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--color-ink);
+  }
+
+  .plans__grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 500px);
+    justify-content: center;
+  }
+
+  .plan-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-line);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-card__header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-line-dark);
+    padding-bottom: 2rem;
+  }
+
+  .plan-card__title {
+    font-size: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-ink);
+  }
+
+  .plan-card__description {
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+  }
+
+  .plan-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+    flex-grow: 1;
+  }
+
+  .plan-card__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+
+  .icon-clay {
+    color: var(--color-clay);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"; // TODO_ASSET
+---
+<section id="sobre" class="about" aria-labelledby="about-title">
+  <div class="container about__container">
+    <div class="about__image-wrapper">
+      <img src={aboutImage} alt="Vanessa Monteiro em atendimento" loading="lazy" decoding="async" />
+    </div>
+    
+    <div class="about__content">
+      <h2 id="about-title" class="about__title">Nutrição com ciência, contexto e <span class="headline-gradient">escuta.</span></h2>
+      
+      <div class="about__text">
+        <p>Sou nutricionista formada pela Universidade Federal de Ouro Preto, Natural Chef e especialista em Reprogramação Epigenética Eficiente. Brasileira vivendo no Reino Unido, conheço de perto os desafios de conciliar rotina, adaptação cultural, trabalho, família e autocuidado.</p>
+        
+        <p>Meu propósito é ajudar mulheres a conquistarem mais saúde, autoestima e qualidade de vida com uma alimentação prática, personalizada e baseada em evidências — respeitando a história, os objetivos e a realidade de cada paciente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 8rem 0;
+    background-color: var(--color-paper);
+    overflow: hidden;
+  }
+
+  .about__container {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .about__container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .about__image-wrapper {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+  }
+
+  .about__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about__title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: 2rem;
+    color: var(--color-ink);
+    max-width: 500px;
+  }
+
+  .about__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 1.125rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+    max-width: 540px;
+  }
+</style>

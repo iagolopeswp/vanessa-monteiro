@@ -1,0 +1,99 @@
+---
+---
+<section id="para-quem-e" class="audience section section--dark" aria-labelledby="audience-title">
+  <div class="container audience__container">
+    <div class="audience__header">
+      <h2 id="audience-title" class="audience__title">
+        Você não precisa de mais uma dieta <span class="headline-gradient">impossível</span> de seguir.
+      </h2>
+      <p class="audience__text">
+        O acompanhamento foi pensado para mulheres que querem cuidar da saúde sem ignorar a própria rotina, cultura, fase de vida e objetivos. A estratégia nasce do seu contexto — não de uma fórmula pronta.
+      </p>
+    </div>
+
+    <ul class="audience__list">
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Sente dificuldade em manter constância</span>
+      </li>
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Deseja emagrecer preservando massa muscular</span>
+      </li>
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Percebe queda de energia e disposição</span>
+      </li>
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Vive mudanças do climatério ou da menopausa</span>
+      </li>
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Quer melhorar a relação com a alimentação</span>
+      </li>
+      <li class="audience__item">
+        <i class="ph ph-check-circle icon-clay"></i>
+        <span>Procura orientação profissional sem extremismos</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section--dark {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    padding: 8rem 0;
+  }
+
+  .audience__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+
+  @media (max-width: 900px) {
+    .audience__container {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .audience__header {
+    max-width: 500px;
+  }
+
+  .audience__title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+  }
+
+  .audience__text {
+    font-size: 1.125rem;
+    color: var(--color-sand);
+    opacity: 0.9;
+  }
+
+  .audience__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .audience__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.125rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-line-dark);
+  }
+
+  .icon-clay {
+    color: var(--color-clay);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+</style>
