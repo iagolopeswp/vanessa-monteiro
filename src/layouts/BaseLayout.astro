@@ -52,6 +52,22 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || siteConfig.siteUr
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- JSON-LD SEO Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Vanessa Monteiro",
+        "jobTitle": "Nutricionista Clínica Funcional",
+        "url": "https://vanessamonteironutri.com.br",
+        "sameAs": [
+          "https://www.instagram.com/vanessamonteironutri/"
+        ],
+        "description": "Acompanhamento nutricional online e personalizado para mulheres 35+, com foco em saúde, energia, composição corporal e longevidade.",
+        "image": "https://vanessamonteironutri.com.br/og-image.jpg"
+      }
+    </script>
   </head>
   <body>
     <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>

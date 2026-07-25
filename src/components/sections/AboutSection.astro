@@ -1,5 +1,7 @@
 ---
-const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"; // TODO_ASSET
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+const aboutImage = "/banner-about.webp";
 ---
 <section id="sobre" class="about" aria-labelledby="about-title">
   <div class="container about__container">
@@ -8,12 +10,20 @@ const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?au
     </div>
     
     <div class="about__content">
+      <span class="section-tag">A Nutricionista</span>
       <h2 id="about-title" class="about__title">Nutrição com ciência, contexto e <span class="headline-gradient">escuta.</span></h2>
       
       <div class="about__text">
-        <p>Sou nutricionista formada pela Universidade Federal de Ouro Preto, Natural Chef e especialista em Reprogramação Epigenética Eficiente. Brasileira vivendo no Reino Unido, conheço de perto os desafios de conciliar rotina, adaptação cultural, trabalho, família e autocuidado.</p>
+        <p>Sou nutricionista formada pela Universidade Federal de Ouro Preto (UFOP), Natural Chef pela Natural Chef Brasil e especialista em Reprogramação Epigenética Eficiente.</p>
         
-        <p>Meu propósito é ajudar mulheres a conquistarem mais saúde, autoestima e qualidade de vida com uma alimentação prática, personalizada e baseada em evidências — respeitando a história, os objetivos e a realidade de cada paciente.</p>
+        <p>Atualmente moro no Reino Unido e realizo atendimentos online para pacientes em diversos países. Entendo a sua rotina porque vivo exatamente os mesmos desafios: adaptação cultural, trabalho, correria e a busca constante por autocuidado.</p>
+
+        <p>Meu propósito é ajudar mulheres a conquistarem mais saúde, autoestima e qualidade de vida por meio de uma alimentação prática, personalizada e baseada em evidência científica — sempre respeitando a sua realidade e seus objetivos.</p>
+        
+        <div class="about__social">
+          <a href="https://www.instagram.com/vanessamonteironutri/" target="_blank" aria-label="Instagram"><i class="ph ph-instagram logo-icon"></i></a>
+          <a href={siteConfig.socialLinks?.whatsapp || "#"} target="_blank" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo logo-icon"></i></a>
+        </div>
       </div>
     </div>
   </div>
@@ -22,7 +32,7 @@ const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?au
 <style>
   .about {
     padding: 8rem 0;
-    background-color: var(--color-paper);
+    background-color: #f6f5f0;
     overflow: hidden;
   }
 
@@ -42,15 +52,54 @@ const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?au
 
   .about__image-wrapper {
     position: relative;
-    border-radius: 2px;
-    overflow: hidden;
+    border-radius: 4px;
     aspect-ratio: 4/5;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+  }
+
+  .about__image-wrapper::before,
+  .about__image-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1.5px solid var(--color-clay);
+    z-index: -1;
+  }
+
+  .about__image-wrapper::before {
+    top: -20px;
+    left: -20px;
+    border-right: none;
+    border-bottom: none;
+    animation: float-tl 4s ease-in-out infinite alternate;
+  }
+
+  .about__image-wrapper::after {
+    bottom: -20px;
+    right: -20px;
+    border-left: none;
+    border-top: none;
+    animation: float-br 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes float-tl {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-10px, -10px); }
+  }
+
+  @keyframes float-br {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(10px, 10px); }
   }
 
   .about__image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
   }
 
   .about__title {
@@ -68,5 +117,40 @@ const aboutImage = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?au
     color: var(--color-ink-soft);
     line-height: 1.6;
     max-width: 540px;
+  }
+
+  .section-tag {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-clay);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background-color: var(--color-clay);
+  }
+
+  .about__social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .logo-icon {
+    font-size: 2rem;
+    color: var(--color-ink);
+    transition: color 0.3s;
+  }
+
+  .logo-icon:hover {
+    color: var(--color-clay);
   }
 </style>

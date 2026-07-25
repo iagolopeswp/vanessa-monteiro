@@ -11,17 +11,27 @@ const benefits = [
 <section class="benefits" aria-labelledby="benefits-title">
   <div class="container">
     <div class="benefits__header">
+      <span class="section-tag">A Estratégia</span>
       <h2 id="benefits-title" class="benefits__title">Uma estratégia que considera <span class="headline-gradient">o todo.</span></h2>
     </div>
 
-    <div class="benefits__grid">
-      {benefits.map(benefit => (
-        <div class="benefit-card">
-          <div class="benefit-card__icon">
-             <i class={`ph ph-${benefit.icon}`}></i>
+    <div class="orbit-container">
+      <div class="orbit-center">
+        <img src="/silhouethe.svg" alt="Silhueta feminina" class="orbit-silhouette" />
+      </div>
+
+      {benefits.map((benefit, index) => (
+        <div class={`orbit-item orbit-item--${index < 3 ? 'left' : 'right'} orbit-item--${index}`}>
+          <div class="orbit-item-header">
+            <div class="hover-indicator"><i class="ph-bold ph-plus"></i></div>
+            <i class={`ph ph-${benefit.icon} orbit-icon-header`}></i>
+            <h3 class="orbit-title">{benefit.title}</h3>
           </div>
-          <h3 class="benefit-card__title">{benefit.title}</h3>
-          <p class="benefit-card__text">{benefit.text}</p>
+          <div class="orbit-content">
+            <div class="orbit-content-inner">
+              <p>{benefit.text}</p>
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -32,12 +42,33 @@ const benefits = [
   .benefits {
     padding: 8rem 0;
     background-color: var(--color-paper);
+    overflow: hidden;
   }
 
   .benefits__header {
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 5rem;
+    margin: 0 auto 3rem;
+  }
+
+  .section-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-clay);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-clay);
   }
 
   .benefits__title {
@@ -45,41 +76,293 @@ const benefits = [
     color: var(--color-ink);
   }
 
-  .benefits__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
+  .orbit-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 650px;
+    margin: 0 auto;
+  }
+  
+  .orbit-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 620px;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .orbit-silhouette {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(230, 168, 23, 0.15));
+    opacity: 0.8;
   }
 
-  .benefit-card {
-    padding: 2rem;
-    border: 1px solid var(--color-line);
-    border-radius: 2px;
-    background-color: var(--color-white);
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  .orbit-item {
+    position: absolute;
+    width: 290px;
+    background: transparent;
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 10;
+    cursor: default;
   }
 
-  .benefit-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 40px rgba(38, 38, 38, 0.05);
+  .orbit-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-white);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    border-radius: inherit;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: -1;
   }
 
-  .benefit-card__icon {
-    font-size: 2rem;
+  .orbit-item:hover {
+    width: 340px;
+    z-index: 20;
+  }
+
+  .orbit-item:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .orbit-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .orbit-icon-header {
+    font-size: 1.5rem;
     color: var(--color-clay);
-    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .orbit-item--left .hover-indicator { order: 3; }
+  .orbit-item--left .orbit-icon-header { order: 2; }
+  .orbit-item--left .orbit-title { order: 1; }
+
+  .orbit-item--right .hover-indicator { order: 1; }
+  .orbit-item--right .orbit-icon-header { order: 2; }
+  .orbit-item--right .orbit-title { order: 3; }
+
+  .hover-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-line-dark);
+    border-radius: 50%;
+    color: var(--color-ink);
+    font-size: 0.75rem;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  
+  .hover-indicator::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--color-clay);
+    animation: pulse-ring 2s infinite;
   }
 
-  .benefit-card__title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    font-family: 'Manrope', sans-serif;
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  .orbit-item:hover .hover-indicator {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+    transform: rotate(90deg);
+  }
+  .orbit-item:hover .hover-indicator::after {
+    display: none;
+  }
+
+  .orbit-item:hover .orbit-title {
+    color: var(--color-clay);
+  }
+
+  /* Connecting Lines */
+  .orbit-item::after {
+    content: '';
+    position: absolute;
+    top: 2.2rem;
+    height: 1px;
+    background-color: var(--color-line-dark);
+    z-index: -2;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .orbit-item--left::after {
+    right: -100px;
+    width: 100px;
+  }
+  .orbit-item--left:hover::after {
+    right: -120px;
+    width: 120px;
+  }
+
+  .orbit-item--right::after {
+    left: -100px;
+    width: 100px;
+  }
+  .orbit-item--right:hover::after {
+    left: -120px;
+    width: 120px;
+  }
+
+  .orbit-title {
+    font-size: 1.125rem;
     font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0;
+    transition: color 0.4s;
+    position: relative;
+    font-family: 'Manrope', sans-serif;
   }
 
-  .benefit-card__text {
-    font-size: 1rem;
+  .orbit-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  
+  .orbit-content-inner {
+    overflow: hidden;
+  }
+
+  .orbit-item:hover .orbit-content {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+
+  .orbit-content-inner p {
+    font-size: 0.95rem;
     color: var(--color-ink-soft);
-    line-height: 1.6;
+    line-height: 1.5;
+  }
+
+  /* Left items */
+  .orbit-item--left {
+    right: calc(50% + 120px);
+    text-align: right;
+  }
+  .orbit-item--left .orbit-content-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .orbit-item--0 { top: 5%; }
+  .orbit-item--1 { top: 50%; transform: translateY(-50%); }
+  .orbit-item--2 { bottom: 5%; }
+
+  .orbit-item--left:hover {
+    transform: translateX(-20px);
+  }
+  .orbit-item--1.orbit-item--left:hover {
+    transform: translateY(-50%) translateX(-20px);
+  }
+
+  /* Right items */
+  .orbit-item--right {
+    left: calc(50% + 120px);
+    text-align: left;
+  }
+  .orbit-item--right .orbit-content-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .orbit-item--3 { top: 5%; }
+  .orbit-item--4 { top: 50%; transform: translateY(-50%); }
+  .orbit-item--5 { bottom: 5%; }
+
+  .orbit-item--right:hover {
+    transform: translateX(20px);
+  }
+  .orbit-item--4.orbit-item--right:hover {
+    transform: translateY(-50%) translateX(20px);
+  }
+
+  /* Mobile Fallback */
+  @media (max-width: 900px) {
+    .orbit-container {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      margin: 2rem auto;
+    }
+    
+    .orbit-center {
+      position: relative;
+      top: auto; left: auto; transform: none;
+      width: 120px;
+      height: 180px;
+      margin-bottom: 2rem;
+    }
+
+    .orbit-item {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      right: auto !important;
+      left: auto !important;
+      top: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+      text-align: center;
+      background: var(--color-white);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid var(--color-line);
+    }
+    
+    .orbit-item::before, .orbit-item::after, .hover-indicator {
+      display: none;
+    }
+
+    .orbit-item:hover {
+      width: 100%;
+      transform: translateY(-4px) !important;
+    }
+
+    .orbit-item--left .orbit-content-inner,
+    .orbit-item--right .orbit-content-inner {
+      align-items: center;
+    }
+
+    /* Em mobile, deixamos o conteúdo visível pois não há hover nativo */
+    .orbit-content {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 1rem;
+    }
   }
 </style>

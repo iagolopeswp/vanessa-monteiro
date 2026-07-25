@@ -1,14 +1,25 @@
 ---
-const testimonials = [
+const baseTestimonials = [
   { text: "Com a Vanessa, entendi que não precisava deixar de comer o que gosto, mas aprender a combinar os alimentos. Minha energia mudou completamente.", author: "Mariana S.", detail: "Londres" },
   { text: "Os exames melhoraram e, pela primeira vez em anos, não sinto aquele inchaço absurdo no final do dia. O acompanhamento foi um divisor de águas.", author: "Camila F.", detail: "Dublin" },
   { text: "Finalmente um plano que considera minha rotina corrida de trabalho e maternidade. A abordagem é acolhedora e muito prática.", author: "Juliana T.", detail: "Lisboa" },
 ];
+
+const testimonials = Array(30).fill(baseTestimonials).flat();
 ---
 <section id="depoimentos" class="testimonials section section--dark" aria-labelledby="testimonials-title">
   <div class="container testimonials__container">
     <div class="testimonials__header">
+      <span class="section-tag">Relatos</span>
       <h2 id="testimonials-title" class="testimonials__title">Histórias de quem <span class="headline-gradient">transformou</span> a rotina.</h2>
+      <div class="testimonials__controls">
+        <button class="control-btn prev-btn" aria-label="Depoimento anterior">
+          <i class="ph ph-caret-left" aria-hidden="true"></i>
+        </button>
+        <button class="control-btn next-btn" aria-label="Próximo depoimento">
+          <i class="ph ph-caret-right" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
 
     <div class="testimonials__slider">
@@ -39,18 +50,62 @@ const testimonials = [
     margin-bottom: 5rem;
   }
 
+  .section-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-sand);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-sand);
+    opacity: 0.5;
+  }
+
   .testimonials__title {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     color: var(--color-paper);
+  }
+
+  .testimonials__controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .control-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 4px;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
   }
 
   .testimonials__slider {
     display: flex;
     gap: 2rem;
     overflow-x: auto;
-    padding-bottom: 2rem;
+    padding: 3rem calc(50% - 175px);
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    align-items: center;
   }
 
   .testimonials__slider::-webkit-scrollbar {
@@ -59,17 +114,33 @@ const testimonials = [
 
   .testimonial-card {
     flex: 0 0 350px;
-    background-color: rgba(251, 250, 247, 0.05);
+    background-color: rgba(251, 250, 247, 0.03);
     border: 1px solid var(--color-line-dark);
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: scale(0.9);
+    opacity: 0.4;
+    filter: blur(3px);
+  }
+
+  .testimonial-card.is-active {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: blur(0px);
+    background-color: rgba(251, 250, 247, 0.08);
+    border-color: rgba(251, 250, 247, 0.2);
+    z-index: 2;
   }
 
   @media (max-width: 768px) {
     .testimonial-card {
       flex: 0 0 85vw;
+    }
+    .testimonials__slider {
+      padding: 3rem calc(50% - 42.5vw);
     }
   }
 
@@ -107,3 +178,63 @@ const testimonials = [
     color: rgba(251, 250, 247, 0.6);
   }
 </style>
+
+<script>
+  function initTestimonials() {
+    const slider = document.querySelector('.testimonials__slider') as HTMLElement;
+    const cards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    if (!slider || cards.length === 0) return;
+
+    if (cards.length > 1) {
+      // Usar um timer e requestAnimationFrame para garantir o layout correto
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          const centerIndex = Math.floor(cards.length / 2);
+          const centerCard = cards[centerIndex] as HTMLElement;
+          const scrollLeft = centerCard.offsetLeft - slider.offsetWidth / 2 + centerCard.offsetWidth / 2;
+          slider.scrollLeft = scrollLeft;
+        });
+      }, 150);
+    }
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        const cardWidth = (cards[0] as HTMLElement).offsetWidth + 32; // 32px = 2rem gap
+        slider.scrollBy({ left: -cardWidth, behavior: 'smooth' }); 
+      });
+      nextBtn.addEventListener('click', () => {
+        const cardWidth = (cards[0] as HTMLElement).offsetWidth + 32;
+        slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      });
+
+      let autoplay = setInterval(() => (nextBtn as HTMLElement).click(), 4000);
+      slider.addEventListener('mouseenter', () => clearInterval(autoplay));
+      slider.addEventListener('mouseleave', () => {
+        autoplay = setInterval(() => (nextBtn as HTMLElement).click(), 4000);
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+        } else {
+          entry.target.classList.remove('is-active');
+        }
+      });
+    }, {
+      root: slider,
+      threshold: 0.6 
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Scripts modules no Astro são executados após o HTML carregar (defer), 
+  // então DOMContentLoaded às vezes não dispara. Executamos direto e no load.
+  initTestimonials();
+  window.addEventListener('load', initTestimonials);
+</script>

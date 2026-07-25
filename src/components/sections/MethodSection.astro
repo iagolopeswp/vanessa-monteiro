@@ -1,4 +1,7 @@
 ---
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+
 const steps = [
   { title: "Escuta e investigação", text: "Compreensão da história, rotina, sintomas, preferências, objetivos e contexto." },
   { title: "Análise individualizada", text: "Avaliação nutricional e análise de exames ou biomarcadores quando pertinentes e disponibilizados pela paciente." },
@@ -9,13 +12,19 @@ const steps = [
 <section id="metodo" class="method section section--dark" aria-labelledby="method-title">
   <div class="container method__container">
     <div class="method__header">
-      <h2 id="method-title" class="method__title">Um plano construído para a sua <span class="headline-gradient">vida real.</span></h2>
-      <p class="method__support">Não é sobre perfeição. É sobre constância com propósito e evolução possível.</p>
+      <span class="section-tag section-tag--dark">O Método</span>
+      <h2 id="method-title" class="method__title">Uma nutrição focada em <span class="headline-gradient">você.</span></h2>
+      <p class="method__support">Tratamento individualizado, visão integrativa e foco na raiz dos sintomas, não apenas nas consequências.</p>
+      <p class="method__philosophy">Não é sobre perfeição. É sobre constância com propósito e evolução real, todos os dias.</p>
+      <div class="method__cta">
+        <Button href={siteConfig.bookingUrl} variant="secondary">Agendar acompanhamento</Button>
+      </div>
     </div>
 
     <div class="method__steps">
       {steps.map((step, index) => (
-        <div class="method-step">
+        <div class="method-step wow-card">
+          <div class="method-step__glow"></div>
           <span class="method-step__number">{(index + 1).toString().padStart(2, '0')}</span>
           <div class="method-step__content">
             <h3 class="method-step__title">{step.title}</h3>
@@ -62,9 +71,19 @@ const steps = [
 
   .method__support {
     font-size: 1.25rem;
-    color: var(--color-sand);
+    color: rgba(255,255,255,0.8);
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .method__philosophy {
+    font-size: 1.125rem;
+    color: var(--color-paper);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    border-left: 2px solid var(--color-clay);
+    padding-left: 1rem;
   }
 
   .method__steps {
@@ -73,9 +92,62 @@ const steps = [
     gap: 4rem;
   }
 
+  .section-tag {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-sand);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background-color: var(--color-sand);
+    opacity: 0.5;
+  }
+
   .method-step {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3rem;
+    border-radius: 0;
     display: flex;
     gap: 2rem;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+
+  .method-step:hover {
+    transform: translateX(-10px);
+    border-color: var(--color-clay);
+  }
+
+  .method-step__glow {
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(230,168,23,0.12) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .method-step:hover .method-step__glow {
+    opacity: 1;
+  }
+
+  .method-step__number, .method-step__content {
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 600px) {

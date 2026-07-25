@@ -4,45 +4,57 @@ import { siteConfig } from '../../config/site';
 
 const plans = [
   {
-    id: "online",
-    name: "Acompanhamento Nutricional Online",
-    description: "Um plano completo para quem busca transformação com acompanhamento próximo.",
-    features: [
-      "Questionário pré-consulta detalhado",
-      "Consulta online de 1h a 1h30",
-      "Plano alimentar individualizado",
-      "Análise de exames (se disponíveis)",
-      "Suporte para dúvidas via WhatsApp"
-    ],
-    ctaLabel: "Agendar acompanhamento",
+    id: "mensal",
+    name: "Mensal",
+    description: "Ideal para quem quer começar agora, testar sua evolução mês a mês e ajustar a rota rapidamente.",
+    ctaLabel: "Quero o Mensal",
     ctaUrl: siteConfig.bookingUrl,
-    enabled: true
+    image: "/mensal.webp",
+    enabled: true,
+    isBestSeller: false
+  },
+  {
+    id: "trimestral",
+    name: "Trimestral",
+    description: "Perfeito para quem busca consistência, mudança de hábitos e resultados visíveis em 90 dias.",
+    ctaLabel: "Quero o Trimestral",
+    ctaUrl: siteConfig.bookingUrl,
+    image: "/trimestral.webp",
+    enabled: true,
+    isBestSeller: true
+  },
+  {
+    id: "semestral",
+    name: "Semestral",
+    description: "Para mulheres que querem transformação completa, acompanhamento contínuo e resultados duradouros.",
+    ctaLabel: "Quero o Semestral",
+    ctaUrl: siteConfig.bookingUrl,
+    image: "/semestral.webp",
+    enabled: true,
+    isBestSeller: false
   }
 ];
 ---
 <section id="servico" class="plans section" aria-labelledby="plans-title">
   <div class="container plans__container">
     <div class="plans__header">
-      <h2 id="plans-title" class="plans__title">Invista na sua <span class="headline-gradient">saúde.</span></h2>
+      <span class="section-tag">Planos</span>
+      <h2 id="plans-title" class="plans__title">Meus planos</h2>
     </div>
 
     <div class="plans__grid">
       {plans.filter(p => p.enabled).map(plan => (
         <div class="plan-card">
-          <div class="plan-card__header">
+          <div class="plan-card__image-wrapper">
+             {plan.isBestSeller && <div class="best-seller-badge">BEST SELLER</div>}
+             <img src={plan.image} alt={plan.name} />
+          </div>
+          <div class="plan-card__content">
             <h3 class="plan-card__title">{plan.name}</h3>
             <p class="plan-card__description">{plan.description}</p>
           </div>
-          <ul class="plan-card__features">
-            {plan.features.map(feature => (
-              <li>
-                <i class="ph ph-check icon-clay"></i>
-                {feature}
-              </li>
-            ))}
-          </ul>
           <div class="plan-card__action">
-            <Button href={plan.ctaUrl} variant="primary" class="w-full" data-analytics="plan_cta_click" data-location="servico">
+            <Button href={plan.ctaUrl} variant="secondary" class="w-full" data-analytics="plan_cta_click" data-location="servico">
               {plan.ctaLabel}
             </Button>
           </div>
@@ -55,7 +67,8 @@ const plans = [
 <style>
   .plans {
     padding: 8rem 0;
-    background-color: var(--color-paper);
+    background-color: var(--color-ink);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .plans__header {
@@ -65,63 +78,116 @@ const plans = [
 
   .plans__title {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
-    color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .section-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-sand);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-sand);
   }
 
   .plans__grid {
     display: grid;
-    grid-template-columns: minmax(300px, 500px);
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  @media (max-width: 900px) {
+    .plans__grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
   }
 
   .plan-card {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-line);
-    padding: 3rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: transform 0.4s ease, border-color 0.4s ease;
   }
 
-  .plan-card__header {
+  .plan-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .plan-card__image-wrapper {
+    width: 100%;
+    aspect-ratio: 1/1;
+    position: relative;
+    overflow: hidden;
     margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-line-dark);
-    padding-bottom: 2rem;
+    border-radius: 4px;
+  }
+
+  .plan-card__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(230, 168, 23, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(230, 168, 23, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 168, 23, 0); }
+  }
+
+  .best-seller-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: -3.5rem;
+    background-color: var(--color-clay);
+    color: var(--color-ink);
+    padding: 0.5rem 4rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    z-index: 2;
+    transform: rotate(45deg);
+    animation: pulseGlow 2s infinite;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   }
 
   .plan-card__title {
     font-size: 1.5rem;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-paper);
     margin-bottom: 1rem;
-    color: var(--color-ink);
   }
 
   .plan-card__description {
-    font-size: 1rem;
-    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
     line-height: 1.6;
-  }
-
-  .plan-card__features {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     flex-grow: 1;
-  }
-
-  .plan-card__features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    font-size: 1rem;
-    color: var(--color-ink);
-  }
-
-  .icon-clay {
-    color: var(--color-clay);
-    font-size: 1.25rem;
-    flex-shrink: 0;
+    padding: 0 1rem;
   }
 
   .w-full {

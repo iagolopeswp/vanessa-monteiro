@@ -11,20 +11,26 @@ const consultationSteps = [
 ---
 <section id="como-funciona" class="consultation section" aria-labelledby="consultation-title">
   <div class="container consultation__container">
-    <div class="consultation__header">
-      <h2 id="consultation-title" class="consultation__title">Como funciona o <span class="headline-gradient">acompanhamento</span></h2>
+    <div class="consultation-steps__header">
+      <span class="section-tag">Sobre o acompanhamento</span>
+      <h2 id="consultation-title" class="consultation-steps__title">Como funciona o <span class="headline-gradient">acompanhamento</span></h2>
     </div>
 
-    <div class="consultation__steps">
-      {consultationSteps.map((step, index) => (
-        <div class="consultation-card">
-          <div class="consultation-card__header">
-             <span class="consultation-card__number">{(index + 1).toString().padStart(2, '0')}</span>
+    <div class="consultation-steps__timeline">
+      <div class="timeline-line-container" aria-hidden="true">
+        <div class="timeline-progress"></div>
+      </div>
+      <div role="list">
+        {consultationSteps.map((step, index) => (
+          <div class="consultation-card step-anim" role="listitem">
+            <div class="consultation-card__header">
+               <span class="consultation-card__number">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 class="consultation-card__title">{step.title}</h3>
+            <p class="consultation-card__text">{step.text}</p>
           </div>
-          <h3 class="consultation-card__title">{step.title}</h3>
-          <p class="consultation-card__text">{step.text}</p>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
     
     <div class="consultation__action">
@@ -41,37 +47,156 @@ const consultationSteps = [
     padding: 8rem 0;
   }
 
-  .consultation__header {
+  .consultation-steps__header {
     text-align: center;
     margin-bottom: 5rem;
   }
 
-  .consultation__title {
+  .consultation-steps__title {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     color: var(--color-ink);
   }
 
-  .consultation__steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem;
-    margin-bottom: 5rem;
+  .section-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-clay-text);
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-clay);
+  }
+
+  .consultation-steps__timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .timeline-line-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background-color: var(--color-line-dark);
+    z-index: 1;
+  }
+
+  .timeline-progress {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-clay);
+    transform-origin: top;
+    transform: scaleY(0);
   }
 
   .consultation-card {
-    padding: 2.5rem;
-    background-color: var(--color-white);
-    border: 1px solid var(--color-line);
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    width: calc(50% - 3rem);
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(30px);
   }
 
-  .consultation-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 40px rgba(38, 38, 38, 0.05);
+  .consultation-card::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    width: 3rem;
+    height: 1px;
+    background-color: var(--color-line-dark);
+    z-index: -1;
+  }
+
+  .consultation-card::after {
+    content: '';
+    position: absolute;
+    top: calc(1.5rem - 4px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-paper);
+    border: 1.5px solid var(--color-clay);
+    z-index: 4;
+  }
+
+  /* Ímpares na Esquerda */
+  .consultation-card:nth-child(odd) {
+    margin-right: calc(50% + 3rem);
+    text-align: right;
+    margin-bottom: 2rem;
+  }
+  .consultation-card:nth-child(odd)::before {
+    right: -3rem;
+  }
+  .consultation-card:nth-child(odd)::after {
+    right: -3rem;
+    transform: translateX(50%);
+  }
+  .consultation-card:nth-child(odd) .consultation-card__header {
+    justify-content: flex-end;
+  }
+
+  /* Pares na Direita */
+  .consultation-card:nth-child(even) {
+    margin-left: calc(50% + 3rem);
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+  .consultation-card:nth-child(even)::before {
+    left: -3rem;
+  }
+  .consultation-card:nth-child(even)::after {
+    left: -3rem;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line-container {
+      left: 1rem;
+    }
+    
+    .consultation-card:nth-child(odd),
+    .consultation-card:nth-child(even) {
+      width: calc(100% - 3rem);
+      margin-left: 3rem;
+      margin-right: 0;
+      text-align: left;
+      margin-bottom: 3rem;
+      margin-top: 0;
+    }
+    
+    .consultation-card:nth-child(odd)::before,
+    .consultation-card:nth-child(even)::before {
+      left: -3rem;
+      right: auto;
+    }
+    
+    .consultation-card:nth-child(odd)::after,
+    .consultation-card:nth-child(even)::after {
+      left: -3rem;
+      right: auto;
+      transform: translateX(-50%);
+    }
   }
 
   .consultation-card__header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
   }
 
   .consultation-card__number {
@@ -82,19 +207,77 @@ const consultationSteps = [
   }
 
   .consultation-card__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--color-ink);
   }
 
   .consultation-card__text {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: var(--color-ink-soft);
     line-height: 1.6;
   }
 
   .consultation__action {
     text-align: center;
+    margin-top: 3rem;
   }
 </style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    function adjustTimelineLine() {
+      const cards = document.querySelectorAll('.consultation-card');
+      const lineContainer = document.querySelector('.timeline-line-container') as HTMLElement;
+      if(cards.length > 0 && lineContainer) {
+        const firstCard = cards[0] as HTMLElement;
+        const lastCard = cards[cards.length - 1] as HTMLElement;
+        
+        const firstDotY = firstCard.offsetTop + 12; 
+        const lastDotY = lastCard.offsetTop + 20;
+        
+        lineContainer.style.top = firstDotY + 'px';
+        lineContainer.style.height = (lastDotY - firstDotY) + 'px';
+      }
+    }
+
+    window.addEventListener('load', adjustTimelineLine);
+    window.addEventListener('resize', adjustTimelineLine);
+    adjustTimelineLine();
+
+    // Animando a linha central
+    gsap.to(".timeline-progress", {
+      scrollTrigger: {
+        trigger: ".consultation-steps__timeline",
+        start: "top 60%",
+        end: "bottom 60%",
+        scrub: 1,
+      },
+      scaleY: 1,
+      ease: "none"
+    });
+
+    // Animando a entrada dos cards
+    const steps = gsap.utils.toArray('.step-anim');
+    steps.forEach((step: any, i) => {
+      gsap.to(step, {
+        scrollTrigger: {
+          trigger: step,
+          start: "top 85%",
+          end: "top 65%",
+          scrub: 1,
+        },
+        opacity: 1,
+        y: 0,
+        ease: "power2.out"
+      });
+    });
+  });
+</script>

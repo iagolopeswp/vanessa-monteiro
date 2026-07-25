@@ -1,12 +1,13 @@
 :root {
-  --color-ink: #262626;
-  --color-ink-soft: #565255;
-  --color-paper: #fbfaf7;
+  --color-ink: #363330;
+  --color-ink-soft: #5e5954;
+  --color-paper: #fcfbf9;
   --color-white: #ffffff;
-  --color-clay: #c79977;
-  --color-sand: #cdbba7;
-  --color-taupe: #927865;
-  --color-line: rgba(38, 38, 38, 0.16);
+  --color-clay: #dfa67b;
+  --color-clay-text: #634024; /* AAA Contrast over paper */
+  --color-sand: #e6a817;
+  --color-taupe: #8c6a51;
+  --color-line: rgba(54, 51, 48, 0.16);
   --color-line-dark: rgba(255, 255, 255, 0.18);
   
   --gradient-headline-light: linear-gradient(
