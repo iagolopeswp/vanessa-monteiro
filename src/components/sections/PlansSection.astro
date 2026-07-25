@@ -1,6 +1,11 @@
 ---
 import Button from '../ui/Button.astro';
 import { siteConfig } from '../../config/site';
+import { Image } from 'astro:assets';
+
+import mensalImg from '../../assets/mensal.webp';
+import trimestralImg from '../../assets/trimestral.webp';
+import semestralImg from '../../assets/semestral.webp';
 
 const plans = [
   {
@@ -9,7 +14,7 @@ const plans = [
     description: "Ideal para quem quer começar agora, testar sua evolução mês a mês e ajustar a rota rapidamente.",
     ctaLabel: "Quero o Mensal",
     ctaUrl: siteConfig.bookingUrl,
-    image: "/mensal.webp",
+    image: mensalImg,
     enabled: true,
     isBestSeller: false
   },
@@ -19,7 +24,7 @@ const plans = [
     description: "Perfeito para quem busca consistência, mudança de hábitos e resultados visíveis em 90 dias.",
     ctaLabel: "Quero o Trimestral",
     ctaUrl: siteConfig.bookingUrl,
-    image: "/trimestral.webp",
+    image: trimestralImg,
     enabled: true,
     isBestSeller: true
   },
@@ -29,7 +34,7 @@ const plans = [
     description: "Para mulheres que querem transformação completa, acompanhamento contínuo e resultados duradouros.",
     ctaLabel: "Quero o Semestral",
     ctaUrl: siteConfig.bookingUrl,
-    image: "/semestral.webp",
+    image: semestralImg,
     enabled: true,
     isBestSeller: false
   }
@@ -47,7 +52,7 @@ const plans = [
         <div class="plan-card">
           <div class="plan-card__image-wrapper">
              {plan.isBestSeller && <div class="best-seller-badge">BEST SELLER</div>}
-             <img src={plan.image} alt={plan.name} />
+             <Image src={plan.image} alt={plan.name} width={322} height={322} quality="high" loading="lazy" decoding="async" />
           </div>
           <div class="plan-card__content">
             <h3 class="plan-card__title">{plan.name}</h3>

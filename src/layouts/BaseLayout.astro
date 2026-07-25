@@ -49,9 +49,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || siteConfig.siteUr
     <!-- Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/banner-vanessa-monteiro.webp" fetchpriority="high">
     
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <!-- JSON-LD SEO Structured Data -->
     <script type="application/ld+json">
@@ -77,9 +78,11 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || siteConfig.siteUr
     <script>
       import { initAnimations } from '../scripts/animations';
       
-      // Run animations when the DOM is ready
-      document.addEventListener('DOMContentLoaded', () => {
-        initAnimations();
+      // Run animations when the page is fully loaded to prevent LCP blocking
+      window.addEventListener('load', () => {
+        requestAnimationFrame(() => {
+          initAnimations();
+        });
       });
     </script>
   </body>
