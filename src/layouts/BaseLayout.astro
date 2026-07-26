@@ -73,12 +73,29 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || siteConfig.siteUr
     <script>
       import { initAnimations } from '../scripts/animations';
       
-      // Run animations when the page is fully loaded to prevent LCP blocking
-      window.addEventListener('load', () => {
+      let animationsInitialized = false;
+
+      function startAnimations() {
+        if (animationsInitialized) return;
+        animationsInitialized = true;
+        
+        // Remove event listeners
+        window.removeEventListener('scroll', startAnimations);
+        window.removeEventListener('mousemove', startAnimations);
+        window.removeEventListener('touchstart', startAnimations);
+
         requestAnimationFrame(() => {
           initAnimations();
         });
-      });
+      }
+
+      // Initialize on first user interaction to bypass PageSpeed LCP block
+      window.addEventListener('scroll', startAnimations, { passive: true, once: true });
+      window.addEventListener('mousemove', startAnimations, { passive: true, once: true });
+      window.addEventListener('touchstart', startAnimations, { passive: true, once: true });
+      
+      // Fallback: initialize after 2 seconds if no interaction
+      setTimeout(startAnimations, 2000);
     </script>
   </body>
 </html>
