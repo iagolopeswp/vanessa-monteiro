@@ -1,6 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
 import { siteConfig } from '../../config/site';
+import Icon from '../ui/Icon.astro';
 const aboutImage = "/banner-about.webp";
 ---
 <section id="sobre" class="about" aria-labelledby="about-title">
@@ -21,8 +22,8 @@ const aboutImage = "/banner-about.webp";
         <p>Meu propósito é ajudar mulheres a conquistarem mais saúde, autoestima e qualidade de vida por meio de uma alimentação prática, personalizada e baseada em evidência científica — sempre respeitando a sua realidade e seus objetivos.</p>
         
         <div class="about__social">
-          <a href="https://www.instagram.com/vanessamonteironutri/" target="_blank" aria-label="Instagram"><i class="ph ph-instagram logo-icon"></i></a>
-          <a href={siteConfig.socialLinks?.whatsapp || "#"} target="_blank" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo logo-icon"></i></a>
+          <a href="https://www.instagram.com/vanessamonteironutri/" target="_blank" aria-label="Instagram"><Icon name="instagram-logo" size={24} class="logo-icon" /></a>
+          <a href={siteConfig.socialLinks?.whatsapp || "#"} target="_blank" aria-label="WhatsApp"><Icon name="whatsapp-logo" size={24} class="logo-icon" /></a>
         </div>
       </div>
     </div>
@@ -127,7 +128,7 @@ const aboutImage = "/banner-about.webp";
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-weight: 600;
-    color: var(--color-clay);
+    color: var(--color-taupe);
     margin-bottom: 1.5rem;
   }
   .section-tag::after {
@@ -135,7 +136,7 @@ const aboutImage = "/banner-about.webp";
     display: block;
     width: 60px;
     height: 1px;
-    background-color: var(--color-clay);
+    background-color: var(--color-taupe);
   }
 
   .about__social {

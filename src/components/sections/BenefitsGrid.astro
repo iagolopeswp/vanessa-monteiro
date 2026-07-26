@@ -1,4 +1,6 @@
 ---
+import Icon from '../ui/Icon.astro';
+
 const benefits = [
   { icon: "sparkle", title: "Emagrecimento sustentável", text: "Sem dietas malucas, focando na sua composição corporal e saúde." },
   { icon: "barbell", title: "Força e massa muscular", text: "Estratégias para preservar e ganhar tônus de forma inteligente." },
@@ -23,8 +25,8 @@ const benefits = [
       {benefits.map((benefit, index) => (
         <div class={`orbit-item orbit-item--${index < 3 ? 'left' : 'right'} orbit-item--${index}`}>
           <div class="orbit-item-header">
-            <div class="hover-indicator"><i class="ph-bold ph-plus"></i></div>
-            <i class={`ph ph-${benefit.icon} orbit-icon-header`}></i>
+            <div class="hover-indicator"><Icon name="plus-bold" size={16} /></div>
+            <Icon name={benefit.icon} size={32} class="orbit-icon-header" />
             <h3 class="orbit-title">{benefit.title}</h3>
           </div>
           <div class="orbit-content">
@@ -60,7 +62,7 @@ const benefits = [
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-weight: 600;
-    color: var(--color-clay);
+    color: var(--color-taupe);
     margin-bottom: 1.5rem;
   }
   .section-tag::before, .section-tag::after {
@@ -68,7 +70,7 @@ const benefits = [
     display: block;
     width: 40px;
     height: 1px;
-    background-color: var(--color-clay);
+    background-color: var(--color-taupe);
   }
 
   .benefits__title {

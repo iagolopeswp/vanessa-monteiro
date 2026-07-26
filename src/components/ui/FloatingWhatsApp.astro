@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../../config/site';
+import Icon from './Icon.astro';
 ---
 <a 
   href={siteConfig.bookingUrl} 
@@ -9,7 +10,7 @@ import { siteConfig } from '../../config/site';
   aria-label="Fale conosco no WhatsApp"
   data-analytics="floating_wpp_click"
 >
-  <i class="ph-fill ph-whatsapp-logo"></i>
+  <Icon name="whatsapp-logo-fill" size={28} />
 </a>
 
 <style>

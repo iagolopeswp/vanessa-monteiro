@@ -1,4 +1,6 @@
 ---
+import Icon from '../ui/Icon.astro';
+
 const baseTestimonials = [
   { text: "Com a Vanessa, entendi que não precisava deixar de comer o que gosto, mas aprender a combinar os alimentos. Minha energia mudou completamente.", author: "Mariana S.", detail: "Londres" },
   { text: "Os exames melhoraram e, pela primeira vez em anos, não sinto aquele inchaço absurdo no final do dia. O acompanhamento foi um divisor de águas.", author: "Camila F.", detail: "Dublin" },
@@ -14,10 +16,10 @@ const testimonials = Array(30).fill(baseTestimonials).flat();
       <h2 id="testimonials-title" class="testimonials__title">Histórias de quem <span class="headline-gradient">transformou</span> a rotina.</h2>
       <div class="testimonials__controls">
         <button class="control-btn prev-btn" aria-label="Depoimento anterior">
-          <i class="ph ph-caret-left" aria-hidden="true"></i>
+          <Icon name="caret-left" size={20} />
         </button>
         <button class="control-btn next-btn" aria-label="Próximo depoimento">
-          <i class="ph ph-caret-right" aria-hidden="true"></i>
+          <Icon name="caret-right" size={20} />
         </button>
       </div>
     </div>
@@ -25,7 +27,7 @@ const testimonials = Array(30).fill(baseTestimonials).flat();
     <div class="testimonials__slider">
       {testimonials.map(testimonial => (
         <div class="testimonial-card">
-          <i class="ph-fill ph-quotes testimonial-card__icon"></i>
+          <Icon name="quotes-fill" size={40} class="testimonial-card__icon" />
           <p class="testimonial-card__text">"{testimonial.text}"</p>
           <div class="testimonial-card__author">
             <strong>{testimonial.author}</strong>
