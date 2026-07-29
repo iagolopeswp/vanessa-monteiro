@@ -3,8 +3,8 @@ import Button from '../ui/Button.astro';
 import { siteConfig } from '../../config/site';
 
 const steps = [
-  { title: "Escuta e investigação", text: "Compreensão da história, rotina, sintomas, preferências, objetivos e contexto." },
-  { title: "Análise individualizada", text: "Avaliação nutricional e análise de exames ou biomarcadores quando pertinentes e disponibilizados pela paciente." },
+  { title: "Escuta e investigação", text: "Entendo sua rotina, alimentação, sintomas e objetivos para construir uma estratégia realmente personalizada." },
+  { title: "Análise individualizada", text: "Avaliação nutricional completa, interpretação de exames bioquiímicos e definição de estratégias alimentares e suplementação para potencializar seus resultados" },
   { title: "Estratégia prática", text: "Plano alimentar e orientações adaptados à realidade, cultura, disponibilidade e fase de vida." },
   { title: "Acompanhamento contínuo", text: "Ajustes ao longo do processo para apoiar consistência, aprendizado e evolução." }
 ];
@@ -13,9 +13,11 @@ const steps = [
   <div class="container method__container">
     <div class="method__header">
       <span class="section-tag section-tag--dark">O Método</span>
-      <h2 id="method-title" class="method__title">Uma nutrição focada em <span class="headline-gradient">você.</span></h2>
-      <p class="method__support">Tratamento individualizado, visão integrativa e foco na raiz dos sintomas, não apenas nas consequências.</p>
-      <p class="method__philosophy">Não é sobre perfeição. É sobre constância com propósito e evolução real, todos os dias.</p>
+      <h2 id="method-title" class="method__title">Uma estratégia construída para <span class="headline-gradient">você.</span></h2>
+      <p class="method__support">Seu plano alimentar é construído considerando sua rotina, exames, sintomas, objetivos e o
+país onde você vive.</p>
+      <p class="method__philosophy">Cada decisão do acompanhamento tem um propósito: gerar resultados que você consiga
+manter.</p>
       <div class="method__cta">
         <Button href={siteConfig.bookingUrl} variant="secondary">Agendar acompanhamento</Button>
       </div>
