@@ -2,12 +2,13 @@
 import Button from '../ui/Button.astro';
 import { siteConfig } from '../../config/site';
 import Icon from '../ui/Icon.astro';
-const aboutImage = "/banner-about.webp";
+import { Image } from 'astro:assets';
+import aboutImage from '../../assets/banner-about.webp';
 ---
 <section id="sobre" class="about" aria-labelledby="about-title">
   <div class="container about__container">
     <div class="about__image-wrapper">
-      <img src={aboutImage} alt="Vanessa Monteiro em atendimento" loading="lazy" decoding="async" />
+      <Image src={aboutImage} alt="Vanessa Monteiro em atendimento" width={800} height={1000} quality="max" loading="lazy" decoding="async" />
     </div>
     
     <div class="about__content">
@@ -22,8 +23,8 @@ const aboutImage = "/banner-about.webp";
         <p>Meu propósito é ajudar mulheres a conquistarem mais saúde, autoestima e qualidade de vida por meio de uma alimentação prática, personalizada e baseada em evidência científica — sempre respeitando a sua realidade e seus objetivos.</p>
         
         <div class="about__social">
-          <a href="https://www.instagram.com/vanessamonteironutri/" target="_blank" aria-label="Instagram"><Icon name="instagram-logo" size={24} class="logo-icon" /></a>
-          <a href={siteConfig.socialLinks?.whatsapp || "#"} target="_blank" aria-label="WhatsApp"><Icon name="whatsapp-logo" size={24} class="logo-icon" /></a>
+          <a href={siteConfig.instagramUrl || "https://www.instagram.com/vanessamonteironutri/"} target="_blank" aria-label="Instagram"><Icon name="instagram-logo" size={24} class="logo-icon" /></a>
+          <a href={siteConfig.bookingUrl || "https://wa.me/message/MOM3WXKP3F3GF1"} target="_blank" aria-label="WhatsApp"><Icon name="whatsapp-logo" size={24} class="logo-icon" /></a>
         </div>
       </div>
     </div>
